@@ -316,7 +316,7 @@ public class ReserveStayController {
 
 No skeleton this time. Use Part A as your template for *shape*, but work out the pieces yourself.
 
-**This is not a new Entity or a new Repository Interface.** `Booking` and `BookingRepositoryInterface` already exist from Part A — this feature extends the same `Booking` class with a new method (something like `cancel(LocalDate today)`), and reuses `BookingRepositoryInterface.findById` / `.save` as-is, unmodified. If you find yourself writing a second Repository Interface for `Booking`, stop — that's a sign the abstraction should be shared, not duplicated.
+**This is not a new Entity or a new Repository Interface.** `Booking` and `BookingRepositoryInterface` already exist from Part A — this feature extends the same `Booking` class with a new method (something like `cancel(LocalDate today)`), and reuses `BookingRepositoryInterface.findById` / `.save` as-is, unmodified. If you find yourself writing a second Repository Interface for `Booking`, stop. Here, the abstraction should be shared, not duplicated.
 
 **What you need to produce**, embedded as formatted Java code in this README.md file:
 
