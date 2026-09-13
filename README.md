@@ -11,7 +11,7 @@ These features will be implemented across the components of Clean Architecture t
 
 - **Part A (Reserve a Stay)** is heavily scaffolded. You'll fill in blanks in mostly-complete code, with an explanation for every blank tied back to a specific box in the diagram.
 - **Part B (Cancel a Booking):** you're on your own. You get the user story, the acceptance criteria, and a checklist of what classes you need, no code skeleton.
-- **Part C (Confirm a Pending Booking):** also on your own, but this one introduces something new: a call to a **real external service** (not your database, not your UI). You'll design a third kind of abstraction to keep that call from breaking the Dependency Rule.
+- **Part C (Confirm a Pending Booking):** also on your own, but this one introduces something new: a call to an **external service** (not your database, not your UI). You'll design a third kind of abstraction to keep that call from breaking the Dependency Rule.
 
 **These three parts share one thing: a single `Booking` entity that moves through a small lifecycle as you complete each part.** Part A creates one. Part C decides whether it gets confirmed or rejected. Part B lets a guest cancel one. None of the three Use Cases call each other directly — they coordinate only through what gets saved to, and read back from, the `Booking` Repository.
 
