@@ -15,6 +15,9 @@ These features will be implemented across the components of Clean Architecture t
 
 **These three parts share one thing: a single `Booking` entity that moves through a small lifecycle as you complete each part.** Part A creates one. Part C decides whether it gets confirmed or rejected. Part B lets a guest cancel one. None of the three Use Cases call each other directly — they coordinate only through what gets saved to, and read back from, the `Booking` Repository.
 
+<p align="center">
+<img src="./BookingStates.png">
+</p>
 ---
 
 ## CozyStay Requirements (short version)
@@ -22,28 +25,6 @@ These features will be implemented across the components of Clean Architecture t
 CozyStay lets guests reserve stays at listings (properties) owned by hosts. Below are the requirements as user stories, plus the business rules. Read all of it before writing any code. As you work through the use cases, you will need to decide which rule belongs to which entity.
 
 ### The Booking lifecycle
-
-Before the individual stories, here's the shape that ties all three together. A `Booking` moves through a small number of states over its life:
-
-```
-                   ┌────────────────────┐
-   Story 1 ───────▶│      PENDING       │
- (Reserve a Stay)   └────────┬───────────┘
-                              │
-                ┌─────────────┼─────────────┐
-                │ Story 3                    │ Story 3
-                │ (verification passes)      │ (verification fails)
-                ▼                            ▼
-          ┌───────────┐                ┌───────────┐
-          │ CONFIRMED │                │ REJECTED  │
-          └─────┬─────┘                └───────────┘
-                │ Story 2
-                │ (Cancel a Booking)
-                ▼
-          ┌───────────┐
-          │ CANCELLED │
-          └───────────┘
-```
 
 A booking can be cancelled (Story 2) from either `PENDING` or `CONFIRMED` — a guest might change their mind before verification even finishes. It cannot be cancelled from `REJECTED` (there's nothing left to cancel) or from `CANCELLED` (already done).
 
