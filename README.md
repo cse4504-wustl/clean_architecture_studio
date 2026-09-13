@@ -2,7 +2,7 @@
 
 ## Overview
 
-You'll build three features (three "use cases") for **CozyStay**, a small short-term home rental app (like a scaled-down Airbnb). All three follow the same process we observed in the [Clean Architecture Visualization](https://cse4504-wustl.github.io/clean_architecture_trace/).
+You'll build three features (three "user stories") for **CozyStay**, a small short-term home rental app (like a scaled-down Airbnb). All three follow the same process we observed in the [Clean Architecture Visualization](https://cse4504-wustl.github.io/clean_architecture_trace/).
 
 These features will be implemented across the components of Clean Architecture that live **inside** the double line boundary (as shown in the diagram below) and the Controller.
 <p align="center">
@@ -15,18 +15,18 @@ These features will be implemented across the components of Clean Architecture t
 
 **These three parts share one thing: a single `Booking` entity that moves through a small lifecycle as you complete each part.** Part A creates one. Part C decides whether it gets confirmed or rejected. Part B lets a guest cancel one. None of the three Use Cases call each other directly — they coordinate only through what gets saved to, and read back from, the `Booking` Repository.
 
-The diagram below shows how Booking transitions between different states, and which use case triggers each state transition.
+The diagram below shows how Booking transitions between different states, and which user story triggers each state transition.
 
 <img src="./BookingStates.png">
 
-As you work through each use case, add formatted code to this README.md file and answer questions in the [**ANSWER**] spaces provided.
+As you work through each user story, add formatted code to this README.md file and answer questions in the [**ANSWER**] spaces provided.
 
 ## AI Usage Policy
 It is important that you work through this studio yourselves, without the help of GenAI. The learning objective of this studio is to practice designing an application using clean architecture. Using GenAI on this studio would prevent you from achieving this learning objective.
 
 ## CozyStay Requirements (short version)
 
-CozyStay lets guests reserve stays at listings (properties) owned by hosts. Below are the requirements as user stories, plus the business rules. Read all of it before writing any code. As you work through the use cases, you will need to decide which rule belongs to which entity.
+CozyStay lets guests reserve stays at listings (properties) owned by hosts. Below are the requirements as user stories, plus the business rules. Read all of it before writing any code. As you work through the user stories, you will need to decide which rule belongs to which entity.
 
 ### The Booking lifecycle
 
