@@ -18,7 +18,6 @@ These features will be implemented across the components of Clean Architecture t
 The diagram below shows how Booking transitions between different states, and which use case triggers each state transition.
 
 <img src="./BookingStates.png">
----
 
 ## CozyStay Requirements (short version)
 
