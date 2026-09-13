@@ -4,7 +4,7 @@
 
 You'll build three features (three "use cases") for **CozyStay**, a small short-term home rental app (like a scaled-down Airbnb). All three follow the same process we observed in the [Clean Architecture Visualization](https://cse4504-wustl.github.io/clean_architecture_trace/).
 
-These features will be implemented across the components of Clean Architecture shown in the diagram below.
+These features will be implemented across the components of Clean Architecture that live **inside** the double line boundary (as shown in the diagram below) and the Controller.
 <p align="center">
 <img src="./cleanArchitecture.png" width=70%>
 </p>
