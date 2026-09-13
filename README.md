@@ -19,6 +19,10 @@ The diagram below shows how Booking transitions between different states, and wh
 
 <img src="./BookingStates.png">
 
+As you work through each use case, add formatted code to this README.md file and answer questions in the [**ANSWER**] spaces provided.
+
+**AI Usage Policy** It is important that you work through this studio yourselves, without the help of GenAI. The learning objective of this studio is to practice designing an application using clean architecture. Using GenAI on this studio would prevent you from achieving this learning objective.
+
 ## CozyStay Requirements (short version)
 
 CozyStay lets guests reserve stays at listings (properties) owned by hosts. Below are the requirements as user stories, plus the business rules. Read all of it before writing any code. As you work through the use cases, you will need to decide which rule belongs to which entity.
