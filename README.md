@@ -324,7 +324,7 @@ No skeleton this time. Use Part A as your template for *shape*, but work out the
 - A **Response Model** for success — what does the guest need to see when the cancellation goes through?
 - A **failure Response Model** — you can reuse `BookingFailureResponseModel` from Part A if a plain "reason" string is all you need, or write your own if cancellation failures need more detail than that.
 - A **Presenter Interface** with two methods — success and failure — following the same pattern as `BookingPresenterInterface` in Part A. (You can reuse `BookingPresenterInterface` itself if a "cancellation confirmed" outcome fits its existing methods well enough, or add a new interface if it doesn't — your call, but be ready to justify it.)
-- A new method on the **`Booking` entity** — not in the Use Case — implementing the refund rule and the cancellable-status check. Business Rules #3 and #4 belong here.
+- A new method on the **`Booking` entity** — not in the Use Case — implementing the refund rule and the cancellable-status check. Business Rules #3 and #4 belong here. Copy the `Booking` class from Part A to Part B and update it with the new method.
 - The **Use Case**, which should mostly just: fetch the booking via `BookingRepositoryInterface.findById`, ask the booking to cancel itself (or compute its own refund), save the change via `BookingRepositoryInterface.save`, and hand the result — success or failure — to the presenter.
 - A new **Controller** that triggers this use case.
 
