@@ -15,6 +15,8 @@ These features will be implemented across the components of Clean Architecture t
 
 **These three parts share one thing: a single `Booking` entity that moves through a small lifecycle as you complete each part.** Part A creates one. Part C decides whether it gets confirmed or rejected. Part B lets a guest cancel one. None of the three Use Cases call each other directly — they coordinate only through what gets saved to, and read back from, the `Booking` Repository.
 
+The diagram below shows how Booking transitions between different states, and which use case triggers each state transition.
+
 <img src="./BookingStates.png">
 ---
 
