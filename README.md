@@ -293,13 +293,6 @@ public class ReserveStayUseCase {
 }
 ```
 
-**Check your answers against these questions before moving on:**
-- In TODO 3, did you call a method on `listingRepository` (the interface), or did you accidentally reference a concrete database class? The Use Case must never know what `ListingRepositoryInterface` is implemented by.
-- In TODO 4, did you call `presenter.presentBookingFailure(...)`, or did you reach for `throw` out of habit? Both "compile," but only one keeps every outcome flowing through the same channel — go back and reread Step 0 if this feels arbitrary.
-- In TODO 5, is the pricing formula itself written anywhere inside `ReserveStayUseCase`? It shouldn't be — if you find yourself typing `nightlyRate * nights + cleaningFee` here, that logic escaped from `Listing` and needs to move back.
-- In TODO 6, which object did you call `save` on? It should be `bookingRepository`, not `listingRepository` — two different Repository Interfaces, one per Entity, and it's easy to reach for the wrong one out of habit.
-- In TODO 7, which box in the diagram receives the Response Model? *(The Presenter — via the Presenter Interface, never directly.)* Notice TODO 4 and TODO 7 call the *same* interface, just different methods on it — the Use Case never talks to a Repository to report an outcome.
-
 ### Step 5: The Controller (given complete, for reference)
 
 ```java
