@@ -4,7 +4,7 @@
 
 You'll build three features (three "user stories") for **CozyStay**, a small short-term home rental app (like a scaled-down Airbnb). All three follow the same process we observed in the [Clean Architecture Visualization](https://cse4504-wustl.github.io/clean_architecture_trace/).
 
-These features will be implemented across the components of Clean Architecture that live **inside** the double line boundary (as shown in the diagram below) and the Controller.
+These features will be implemented across the components of Clean Architecture that live **inside** the double line boundary (as shown in the diagram below).
 <p align="center">
 <img src="./cleanArchitecture.png" width=70%>
 </p>
@@ -293,25 +293,6 @@ public class ReserveStayUseCase {
 }
 ```
 
-### Step 5: The Controller (given complete, for reference)
-
-```java
-public class ReserveStayController {
-    private final ReserveStayUseCase useCase;
-
-    public ReserveStayController(ReserveStayUseCase useCase) {
-        this.useCase = useCase;
-    }
-
-    public void onReserveStayClicked(String listingId, String guestId, LocalDate checkIn, LocalDate checkOut) {
-        useCase.reserveStay(new ReserveStayRequestModel(listingId, guestId, checkIn, checkOut));
-    }
-}
-```
-
-**ASK yourself:** why is there no interface between `ReserveStayController` and `ReserveStayUseCase`, even though we were careful to use interfaces everywhere else? *(Same answer as the lecture's Step 3 — Controller → Use Case already points inward, so an interface isn't structurally required, even though it's an available option.)*
-
-
 ## Part B — Cancel a Booking (your turn)
 
 No skeleton this time. Use Part A as your template for *shape*, but work out the pieces yourself.
@@ -326,7 +307,6 @@ No skeleton this time. Use Part A as your template for *shape*, but work out the
 - A **Presenter Interface** with two methods — success and failure — following the same pattern as `BookingPresenterInterface` in Part A. (You can reuse `BookingPresenterInterface` itself if a "cancellation confirmed" outcome fits its existing methods well enough, or add a new interface if it doesn't — your call, but be ready to justify it.)
 - A new method on the **`Booking` entity** — not in the Use Case — implementing the refund rule and the cancellable-status check. Business Rules #3 and #4 belong here. Copy the `Booking` class from Part A to Part B and update it with the new method.
 - The **Use Case**, which should mostly just: fetch the booking via `BookingRepositoryInterface.findById`, ask the booking to cancel itself (or compute its own refund), save the change via `BookingRepositoryInterface.save`, and hand the result — success or failure — to the presenter.
-- A new **Controller** that triggers this use case.
 
 **Hints:**
 - Business Rule #4 ("only PENDING or CONFIRMED bookings can be cancelled") is a great candidate for a check that lives *inside* `Booking`, not as an `if` statement in the Use Case. Ask yourself: is "can this booking currently be cancelled?" a fact about the business, or a fact about how a screen happens to be built? That answers where the check belongs.
@@ -356,7 +336,7 @@ So: apply the exact same trick again - use abstraction!
 - [ ] A `Guest` entity — a business concept holding whatever data Business Rule #5 needs (e.g., completed-stay count, cancellation count) plus a method to answer "is this guest trustworthy?"
 - [ ] A `GuestRepositoryInterface` — the Use Case needs to fetch guest data from *somewhere* to evaluate Rule #5 and to get the guest's name/ID number for TrustCheck. This is a fourth Repository-style interface in this activity; it follows the exact same shape as the other two.
 - [ ] An interface — call it something like `IdentityVerificationGateway` — that describes *what CozyStay's business logic needs*, in CozyStay's own vocabulary (guest name, ID number, a verification result), **not** in TrustCheck's vocabulary (don't let TrustCheck's specific request/response field names leak into this interface).
-- [ ] `ConfirmBookingUseCase`, a Request Model (probably just a booking ID), a Response Model, and a Controller.
+- [ ] `ConfirmBookingUseCase`, a Request Model (probably just a booking ID), and a Response Model.
 - [ ] A Presenter Interface — reuse `BookingPresenterInterface` if its methods fit, or add your own.
 
 **Sketch the orchestration before you code it.** In roughly what order does `ConfirmBookingUseCase` need to: fetch the Booking, fetch the Guest, check Rule #5, possibly call the gateway, update the Booking's status, and save it? Get this sequence right on paper first — it's easy to call the (expensive, real-world) TrustCheck gateway before checking whether Rule #5 already made that call unnecessary.
