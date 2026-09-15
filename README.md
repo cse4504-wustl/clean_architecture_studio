@@ -68,8 +68,7 @@ A booking can be cancelled (Story 2) from either `PENDING` or `CONFIRMED` — a 
 - If TrustCheck fails the guest, the booking's status becomes rejected, along with a reason.
 - Either way, the guest sees the final status of their booking.
 
-### Business rules (from the product manager's notes — not yet assigned to any class)
-
+### Business rules
 1. A stay's total price is nightly rate × nights, plus a flat cleaning fee.
 2. A listing has a minimum-nights requirement; stays shorter than that aren't allowed.
 3. Cancellation refund policy: full refund if cancelled 7+ days before check-in; 50% refund if cancelled 3–6 days before check-in; no refund if cancelled fewer than 3 days before check-in, or if check-in has already passed.
