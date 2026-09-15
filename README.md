@@ -24,6 +24,8 @@ As you work through each user story, add formatted code to this README.md file a
 ## AI Usage Policy
 It is important that you work through this studio yourselves, without the help of GenAI. The learning objective of this studio is to practice designing an application using clean architecture. Using GenAI on this studio would prevent you from achieving this learning objective.
 
+You can use GenAI for Java specific questions.
+
 ## CozyStay Requirements (short version)
 
 CozyStay lets guests reserve stays at listings (properties) owned by hosts. Below are the requirements as user stories, plus the business rules. Read all of it before writing any code. As you work through the user stories, you will need to decide which rule belongs to which entity.
@@ -313,11 +315,10 @@ No skeleton this time. Use Part A as your template for *shape*, but work out the
 - That same rule is also a good test of the Step 0 decision from Part A: when a guest tries to cancel a booking that's already `CANCELLED` or `REJECTED`, does your Use Case throw, or does it report the outcome through the Presenter Interface like every other expected failure? Stay consistent with Part A's answer.
 - Don't reuse `ReserveStayResponseModel` for the success case — a cancellation returns different information than a new reservation does. A separate use case gets its own DTOs, even if some fields look similar.
 
-**Self-check questions when you're done:**
-1. If someone read only your `Booking` entity's code, could they tell you the full refund policy without looking at the Use Case? If not, some of the rule leaked out of the entity.
-2. Does your Use Case contain any date-math for the refund tiers? It shouldn't — that's Business Rule #3's logic, and it belongs on `Booking`.
-3. Does your Use Case throw an exception anywhere for the "can't cancel this" case? If so, revisit Step 0 of Part A and decide whether that's really a bug, or an expected outcome that belongs in a Response Model instead.
-4. Did you add a second `BookingRepositoryInterface`, or reuse the one from Part A? If you added one, what does that duplication cost you the next time someone needs to touch how Bookings are persisted?
+```java
+// TODO: Place your Java code here
+
+```
 
 ---
 
@@ -333,41 +334,19 @@ So: apply the exact same trick again - use abstraction!
 
 **What you need to design that's new:**
 
-- [ ] A `Guest` entity — a business concept holding whatever data Business Rule #5 needs (e.g., completed-stay count, cancellation count) plus a method to answer "is this guest trustworthy?"
-- [ ] A `GuestRepositoryInterface` — the Use Case needs to fetch guest data from *somewhere* to evaluate Rule #5 and to get the guest's name/ID number for TrustCheck. This is a fourth Repository-style interface in this activity; it follows the exact same shape as the other two.
-- [ ] An interface — call it something like `IdentityVerificationGateway` — that describes *what CozyStay's business logic needs*, in CozyStay's own vocabulary (guest name, ID number, a verification result), **not** in TrustCheck's vocabulary (don't let TrustCheck's specific request/response field names leak into this interface).
-- [ ] `ConfirmBookingUseCase`, a Request Model (probably just a booking ID), and a Response Model.
-- [ ] A Presenter Interface — reuse `BookingPresenterInterface` if its methods fit, or add your own.
+- A `Guest` entity — a business concept holding whatever data Business Rule #5 needs (e.g., completed-stay count, cancellation count) plus a method to answer "is this guest trustworthy?"
+- A `GuestRepositoryInterface` — the Use Case needs to fetch guest data from *somewhere* to evaluate Rule #5 and to get the guest's name/ID number for TrustCheck. This is a fourth Repository-style interface in this activity; it follows the exact same shape as the other two.
+- An interface — call it something like `IdentityVerificationGateway` — that describes *what CozyStay's business logic needs*, in CozyStay's own vocabulary (guest name, ID number, a verification result), **not** in TrustCheck's vocabulary (don't let TrustCheck's specific request/response field names leak into this interface).
+- `ConfirmBookingUseCase`, a Request Model (probably just a booking ID), and a Response Model.
+- A Presenter Interface — reuse `BookingPresenterInterface` if its methods fit, or add your own.
 
 **Sketch the orchestration before you code it.** In roughly what order does `ConfirmBookingUseCase` need to: fetch the Booking, fetch the Guest, check Rule #5, possibly call the gateway, update the Booking's status, and save it? Get this sequence right on paper first — it's easy to call the (expensive, real-world) TrustCheck gateway before checking whether Rule #5 already made that call unnecessary.
 
 **A wrinkle worth noticing:** a "rejected" outcome here isn't quite the same kind of failure as Parts A and B. A too-short stay or an uncancellable booking are cases where the *use case itself* couldn't do what was asked. A rejected verification is different — the use case completed exactly what it was supposed to do (evaluate the booking) and arrived at an unfavorable answer. Decide whether that distinction changes your design: does "rejected" belong in a `presentBookingFailure`-style failure DTO, or is it more honest as a normal outcome on your success Response Model (e.g., a `status` field alongside a `reason`)? Either can work — but be ready to defend which one you picked, using the same reasoning from Part A's Step 0.
 
-**Questions to answer before you write any code** (these are the important part of this exercise):
+```java
+// TODO: Place your Java code here
 
-1. Your `IdentityVerificationGateway` interface should not mention TrustCheck by name anywhere in its method signatures. Why not? What would break if it did?
-2. Suppose CozyStay switches identity-verification vendors next year, from TrustCheck to a competitor called SafeGuest. Walk through, class by class, exactly what would need to change. If your answer includes `ConfirmBookingUseCase`, `Booking`, or `Guest`, something is wired wrong — go back and find where the dependency points outward.
-
----
-
-## Wrap-up: connecting all three parts
-
-Once all three use cases are built, answer the following questionsin the space provided:
-
-1. Across `ReserveStayUseCase`, `CancelBookingUseCase`, and `ConfirmBookingUseCase`, is there a single `if` statement anywhere that checks a *business* condition (minimum nights, refund tiers, verification trust, which statuses are cancellable) rather than an orchestration condition (did the repository return something, did the API call succeed)? If you find one, which entity should it move to?<br>
-[**ANSWER**]
-
-2. You now have three Repository-style interfaces (`ListingRepositoryInterface`, `BookingRepositoryInterface`, `GuestRepositoryInterface`), one Presenter-style interface, and `IdentityVerificationGateway`. A SQL table, a console printout, and a call to TrustCheck could not be more different from each other as implementations — but structurally, all five interfaces are built the same way. Answer all three parts:
-   * Contents: what do all five interfaces contain, and — just as importantly — what do none of them contain?<br>
-   [**ANSWER**:]
-
-   * Vocabulary: are each interface's method names and parameter types written in CozyStay's own vocabulary, or borrowed from whatever real-world system sits behind it (SQL, TrustCheck's request/response shapes, etc.)?<br>
-   [**ANSWER**]
-
-   * Ownership: which side of a boundary is each interface defined on, and which side is the class that implements it defined on?<br>
-   [**ANSWER**]
-
-3. Look back at Step 0 of Part A. Did you stay consistent across all three use cases — reporting every expected business outcome through the Presenter Interface — or did an exception or a boolean sneak back in somewhere under time pressure? If so, where, and what would it take a Controller to correctly handle it?<br>
-[**ANSWER**]
+```
 4. Which class in your code is responsible for making sure an illegal Booking state transition (e.g. `REJECTED → CONFIRMED`) can never happen?<br>
 [**ANSWER**]
