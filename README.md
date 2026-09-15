@@ -24,7 +24,7 @@ As you work through each user story, add formatted code to this README.md file a
 ## AI Usage Policy
 It is important that you work through this studio yourselves, without the help of GenAI. The learning objective of this studio is to practice designing an application using clean architecture. Using GenAI on this studio would prevent you from achieving this learning objective.
 
-You can use GenAI for Java specific questions.
+You can use GenAI for Java specific questions, spelling, formatting (anything that's not related to the design of this application).
 
 ## CozyStay Requirements (short version)
 
