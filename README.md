@@ -349,5 +349,3 @@ So: apply the exact same trick again - use abstraction!
 // TODO: Place your Java code here
 
 ```
-4. Which class in your code is responsible for making sure an illegal Booking state transition (e.g. `REJECTED → CONFIRMED`) can never happen?<br>
-[**ANSWER**]
