@@ -20,7 +20,8 @@ The diagram below shows how Booking transitions between different states, and wh
 <img src="./BookingStates.png">
 
 ## Your Task
-As you work through each user story, add formatted code to this README.md file, in the space provided. The TODO comments in this studio designate the place where you should be adding code.
+- As you work through each user story, add formatted code to this README.md file, in the space provided. The TODO comments in this studio designate the place where you should be adding code.
+- User stories build on each other, so you should work through them sequentially (don't split up the work among teammates, work on each story together).
 
 ## AI Usage Policy
 It is important that you work through this studio yourselves, without the help of GenAI. The learning objective of this studio is to practice designing an application using clean architecture. Using GenAI on this studio would prevent you from achieving this learning objective.
